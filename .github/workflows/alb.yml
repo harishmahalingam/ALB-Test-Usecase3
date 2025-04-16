@@ -1,7 +1,7 @@
-name: Terraform CI/CD
+name: Terraform workflow
 
 on:
- workflow_dispatch:
+  workflow_dispatch:
 
 jobs:
   terraform:
@@ -20,10 +20,6 @@ jobs:
           aws configure set region us-east-1
           aws configure set output json
 
-      - name: Verify AWS CLI Authentication
-        run: |
-          aws sts get-caller-identity
-
       - name: Terraform Init
         run: terraform init
 
@@ -33,7 +29,9 @@ jobs:
       - name: Terraform Plan
         run: terraform plan
 
+      - name: Request Approval
+        run: echo "Please approve the plan before applying."
+
       - name: Terraform Apply
-        run: |
-          terraform apply -auto-approve
-        #  terraform destroy -auto-approve
+        if: ${{ github.event.inputs.approve == 'true' }}
+        run: terraform apply -auto-approve
