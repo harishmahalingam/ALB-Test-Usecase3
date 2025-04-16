@@ -114,7 +114,7 @@ resource "aws_instance" "instances" {
   instance_type          = var.instance_type
   subnet_id              = aws_subnet.subnets[count.index].id
   vpc_security_group_ids = [aws_security_group.ec2_sg.id]
-  user_data              = templatefile("${path.module}/user_data/instance_${count.index + 1}.sh", {})
+  user_data              = templatefile("${path.module}/user_data/web${count.index + 1}.sh", {})
   tags = {
     Name = "instance-${count.index + 1}"
   }
