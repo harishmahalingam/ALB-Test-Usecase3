@@ -1,7 +1,7 @@
 #!/bin/bash
-yum update -y
-yum install -y nginx
-systemctl start nginx
-systemctl enable nginx
-mkdir -p /usr/share/nginx/html/register
-echo "Welcome to the Register Page" > /usr/share/nginx/html/register/index.html
+apt update -y
+apt install apache2 -y
+sudo systemctl enable apache2
+sudo systemctl start apache2
+sudo mkdir -p /var/www/html/register
+echo "Images" > /var/www/html/Images/index.html
